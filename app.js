@@ -32,4 +32,4 @@ client.on('message', msg => {
 });
 
 
-client.login('NzE4MTI3NjM5OTkwMjM5Mjky.XtkY4Q.fBFDp6wUkfc0c-evFmtrsCx2sXo').then(r => console.log('Token is good, connected!'));
+client.login(process.env.DISCORD_TOKEN).then(r => console.log('Token is good, connected!'));
