@@ -1,1 +1,3 @@
 # fudBot
+
+A useless bot
