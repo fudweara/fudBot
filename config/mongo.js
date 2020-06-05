@@ -1,6 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
 
-
 const url = process.env.MONGO_DB_URL; // <dbname>?retryWrites=true&w=majority
 
 // Database Name
@@ -13,11 +12,21 @@ const mongoInit = () => {
     // Use connect method to connect to the server
     MongoClient.connect(url, {useUnifiedTopology: true}, function (err, client) {
 
-        console.log("Connected successfully to server");
-
         db = client.db(dbName);
-        client.close();
+        //client.close().then(r => console.log("Client closed"));
+
     });
 };
 
-module.exports =  mongoInit;
+const addSound = (sound) => {
+    db.collection('sounds').insertOne(sound)
+        .then(function (result) {
+            console.log(result + 'added');
+        })
+};
+
+
+module.exports = {
+    init: mongoInit,
+    addSound: addSound
+};

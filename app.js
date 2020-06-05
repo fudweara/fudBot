@@ -7,12 +7,17 @@ const dotenv = require('dotenv');
 dotenv.config({path: '.env'});
 
 const Discord = require('discord.js');
-const mongoInit = require('./config/mongo');
+const mongo = require('./config/mongo');
+const request = require('request').defaults({encoding: null});
+
+//Import files for functionality
+const Sound = require('./controllers/Sound');
+const Utils = require('./controllers/utils');
 
 const client = new Discord.Client();
 const prefixCall = '!';
 
-mongoInit();
+mongo.init();
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -21,13 +26,33 @@ client.on('ready', () => {
 
 client.on('message', msg => {
 
-    switch(msg.content){
+
+    // when file is up
+    if (msg.attachments.size) {
+        console.log(msg.attachments[0]);
+
+        request.get('', function (err, res, body) {
+            //process exif here
+
+        });
+
+        Sound.addNewSound(msg);
+        console.log('file uploaded')
+    }
+
+    switch (msg.content.split(' ')[0]) {
+
         case prefixCall + 'ping':
             msg.reply('pong');
             break;
-        default:
-            console.log('menfou');
+
+        case prefixCall + 'delete' :
+            Utils.deleteMessage(msg);
             break;
+    }
+
+    if(msg.content[0] ===prefixCall){
+        msg.delete();
     }
 });
 
