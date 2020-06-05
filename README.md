@@ -1,3 +1,3 @@
 # fudBot
 
-A useless bot
+List available commands :
