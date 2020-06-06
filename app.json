@@ -18,11 +18,11 @@
     },
     "MONGO_DB_DB_NAME": {
       "description": "The name of your mongo DB",
-      "required": false
+      "required": true
     },
     "NAME_ADMIN_ROLE": {
       "description": "Role name to allow user to do protected commands",
-      "required": false
+      "required": true
     }
   }
 }
