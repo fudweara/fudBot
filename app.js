@@ -28,6 +28,10 @@ client.on('message', async msg => {
 
     switch (msg.content.split(' ')[0]) {
 
+        case prefixCall + 'help':
+            Utils.help(msg);
+            break;
+
         case prefixCall + 'ping':
             msg.reply('pong');
             break;

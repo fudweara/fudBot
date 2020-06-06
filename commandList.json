@@ -1,0 +1,47 @@
+{
+  "prefix": "!",
+  "commandList": [
+    {
+      "name": "help",
+      "description": "Affiche toutes les commandes possibles"
+    },
+    {
+      "name": "ping",
+      "description": "Fait Pong"
+    },
+    {
+      "name": "delete",
+      "parameters": [
+        {
+          "name": "Nom de messages",
+          "type": "Entier"
+        }
+      ],
+      "description": "Supprime le nombre de messages entré."
+    },
+    {
+      "name": "add",
+      "parameters": [
+        {
+          "name": "Tag du fichier",
+          "type": "Chaine de caractère"
+        },
+        {
+          "name": "Fichier audio",
+          "type": "Fichier attaché"
+        }
+      ],
+      "description": "Ajouter un fichier audio avec un tag."
+    },
+    {
+      "name": "play",
+      "parameters": [
+        {
+          "name": "Tag du fichier",
+          "type": "Chaine de caractère"
+        }
+      ],
+      "description": "Lit le fichier audio du tag saisi"
+    }
+  ]
+}
