@@ -28,7 +28,6 @@ client.on('ready', () => {
 
 client.on('message', async msg => {
 
-    //msg.guild.roles.fetch().then(f => console.log(f))
 
     switch (msg.content.split(' ')[0]) {
 
