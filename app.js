@@ -15,16 +15,20 @@ const Utils = require('./controllers/utils');
 
 const client = new Discord.Client();
 const prefixCall = '!';
+const roleNameAdmin = 'FudBot admin';
 
 mongo.init();
 
+
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+
 });
 
 
 client.on('message', async msg => {
 
+    //msg.guild.roles.fetch().then(f => console.log(f))
 
     switch (msg.content.split(' ')[0]) {
 
@@ -45,11 +49,22 @@ client.on('message', async msg => {
             break;
 
         case prefixCall + 'delete' :
-            Utils.deleteMessage(msg);
+            havePermission(msg, (msg) => {
+                Utils.deleteMessage(msg);
+            });
+
             break;
     }
 
 });
+
+const havePermission = (message, callback) => {
+
+    if (!message.member.roles.cache.map(role => role.name).includes(roleNameAdmin))
+        message.reply('Pas assez de permissions, tu dois avoir le rôle ' + roleNameAdmin);
+    else
+        callback(message);
+};
 
 
 client.login(process.env.DISCORD_TOKEN).then(r => console.log('Token is good, connected!'));
