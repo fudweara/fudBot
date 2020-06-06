@@ -21,6 +21,8 @@ addNewSound = (msg) => {
         return;
     }
 
+    // TODO : check if name is already in the DB
+
     // We can add the sound to the DB
     request.get(msg.attachments.first().url, function (err, res, body) {
 
