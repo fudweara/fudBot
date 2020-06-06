@@ -8,10 +8,9 @@ dotenv.config({path: '.env'});
 
 const Discord = require('discord.js');
 const mongo = require('./config/mongo');
-const request = require('request').defaults({encoding: null});
 
 //Import files for functionality
-const Sound = require('./controllers/Sound');
+const Sound = require('./controllers/sound');
 const Utils = require('./controllers/utils');
 
 const client = new Discord.Client();
@@ -27,23 +26,14 @@ client.on('ready', () => {
 client.on('message', msg => {
 
 
-    // when file is up
-    if (msg.attachments.size) {
-        console.log(msg.attachments[0]);
-
-        request.get('', function (err, res, body) {
-            //process exif here
-
-        });
-
-        Sound.addNewSound(msg);
-        console.log('file uploaded')
-    }
-
     switch (msg.content.split(' ')[0]) {
 
         case prefixCall + 'ping':
             msg.reply('pong');
+            break;
+
+        case prefixCall+'add':
+            Sound.addNewSound(msg);
             break;
 
         case prefixCall + 'delete' :
@@ -51,9 +41,6 @@ client.on('message', msg => {
             break;
     }
 
-    if (msg.content[0] === prefixCall) {
-        msg.delete();
-    }
 });
 
 

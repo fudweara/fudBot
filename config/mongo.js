@@ -21,7 +21,7 @@ const mongoInit = () => {
 const addSound = (sound) => {
     db.collection('sounds').insertOne(sound)
         .then(function (result) {
-            console.log(result + 'added');
+            console.log('added');
         })
 };
 
