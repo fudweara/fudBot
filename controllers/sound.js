@@ -3,7 +3,11 @@ const Utils = require('../utils/utils');
 const MusicMetadata = require('music-metadata-browser');
 const {MessageEmbed} = require('discord.js');
 
+const ytdl = require('ytdl-core');
+const {validateUrl} = require('youtube-validate');
+
 const request = require('request').defaults({encoding: null});
+
 
 addNewSound = async (msg) => {
 
@@ -100,8 +104,40 @@ const playSound = async (message) => {
 
 };
 
+const playYoutubeSound = async (message) => {
+
+    // Checks
+    if (message.member.voice.channel === null) {
+        message.reply('Tu n\'est pas dans un channel vocal sur ce serveur.');
+        return;
+    }
+
+    if (!message.content.split(' ')[1]) {
+        message.reply('Il manque le lien Youtube.');
+        return;
+    }
+
+
+    const youtubeAddress = message.content.split(' ')[1];
+
+
+    validateUrl(youtubeAddress)
+        .then(res => {
+            message.member.voice.channel.join().then((connection) => {
+                connection.play(ytdl(youtubeAddress, {filter: 'audioonly'})).on("finish", () => {
+                    connection.disconnect()
+                })
+            });
+
+        }).catch((err) => {
+        message.reply('Le lien youtube n\'est pas valide');
+    });
+
+};
+
 
 module.exports = {
     add: addNewSound,
     play: playSound,
+    playYoutube: playYoutubeSound,
 };

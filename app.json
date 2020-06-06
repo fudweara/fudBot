@@ -9,7 +9,7 @@
   ],
   "env": {
     "DISCORD_TOKEN": {
-      "description": "Your discord token (available on discord dev website",
+      "description": "Your discord token (available on discord dev website)",
       "required": true
     },
     "MONGO_DB_URL": {

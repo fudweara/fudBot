@@ -19,7 +19,9 @@
     "mime-types": "^2.1.27",
     "mongodb": "^3.5.8",
     "music-metadata-browser": "^2.0.5",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "youtube-validate": "^1.2.4",
+    "ytdl-core": "^2.1.7"
   },
   "devDependencies": {
     "eslint": "^7.1.0"

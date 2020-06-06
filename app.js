@@ -46,6 +46,10 @@ client.on('message', async msg => {
             await Sound.play(msg);
             break;
 
+        case prefixCall+'playyt':
+            await Sound.playYoutube(msg);
+            break;
+
         case prefixCall + 'delete' :
             havePermission(msg, (msg) => {
                 Utils.deleteMessage(msg);
