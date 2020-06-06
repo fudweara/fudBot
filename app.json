@@ -1,0 +1,28 @@
+{
+  "name": "FudBot",
+  "description": "Simple bot for Discord",
+  "repository": "https://github.com/fudweara/fudBot",
+  "keywords": [
+    "node",
+    "discord",
+    "bot"
+  ],
+  "env": {
+    "DISCORD_TOKEN": {
+      "description": "Your discord token (available on discord dev website",
+      "required": true
+    },
+    "MONGO_DB_URL": {
+      "description": "Mongo DB address",
+      "required": true
+    },
+    "MONGO_DB_DB_NAME": {
+      "description": "The name of your mongo DB",
+      "required": false
+    },
+    "NAME_ADMIN_ROLE": {
+      "description": "Role name to allow user to do protected commands",
+      "required": false
+    }
+  }
+}
