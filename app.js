@@ -23,7 +23,7 @@ client.on('ready', () => {
 });
 
 
-client.on('message', msg => {
+client.on('message', async msg => {
 
 
     switch (msg.content.split(' ')[0]) {
@@ -32,8 +32,12 @@ client.on('message', msg => {
             msg.reply('pong');
             break;
 
-        case prefixCall+'add':
-            Sound.addNewSound(msg);
+        case prefixCall + 'add':
+            Sound.add(msg);
+            break;
+
+        case prefixCall + 'play':
+            await Sound.play(msg);
             break;
 
         case prefixCall + 'delete' :

@@ -19,14 +19,26 @@ const mongoInit = () => {
 };
 
 const addSound = (sound) => {
+
     db.collection('sounds').insertOne(sound)
         .then(function (result) {
             console.log('added');
         })
 };
 
+const getSoundWithName = (name, callback) => {
+
+    db.collection('sounds').find({'name': name}).toArray(function (err, docs) {
+
+        if (err) console.error(err);
+        callback(docs[0]);
+    });
+
+};
+
 
 module.exports = {
     init: mongoInit,
-    addSound: addSound
+    addSound: addSound,
+    getSound: getSoundWithName,
 };
