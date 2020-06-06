@@ -15,10 +15,9 @@ const Utils = require('./controllers/utils');
 
 const client = new Discord.Client();
 const prefixCall = '!';
-const roleNameAdmin = 'FudBot admin';
+const roleNameAdmin = process.env.NAME_ADMIN_ROLE;
 
 mongo.init();
-
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
