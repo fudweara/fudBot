@@ -1,0 +1,24 @@
+{
+  "Logged in as %s": "Connecté en tant que %s",
+  "Not enough permissions, you need to have the role %s": "Pas assez de permissions, tu dois avoir le rôle %s",
+  "Token is good, connected!": "Le token est bon, le bot est connecté!",
+  "Incorrect command add sound": "La commande c'est !add nomduson et toi tu as oublié le nom du son",
+  "No sound attached": "Il manque le son",
+  "Max size add sound": "Fichier audio trop grand. La taille maximum est %s mo",
+  "Music already have the name": "Une musique a déjà ce nom",
+  "Sound added!": "Son ajouté!",
+  "Suggestion launch music": "Si tu veux le lancer : %s",
+  "Song name forgotten": "C'est quoi le nom de la musique ?",
+  "Not in vocal channel": "Tu n'est pas dans un channel vocal sur ce serveur.",
+  "No music found": "Aucune musique trouvé qui avec ce nom.",
+  "No youtube link": "Il manque le lien Youtube.",
+  "Added to list": "%s est ajouté à la file!",
+  "Youtube link not valid": "Le lien youtube n'est pas valide",
+  "No music in queue": "Il n'y a pas de musique en queue",
+  "Now played": "EN TRAIN D'ETRE ECOUTEE",
+  "Playlist": "'File d'attente:",
+  "No music": "Il n'y a pas de musique actuellement joué",
+  "No previous music": "Il n'y a pas de musique précedente dans la playlist"
+
+
+}

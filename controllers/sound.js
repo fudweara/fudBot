@@ -8,6 +8,8 @@ const {validateUrl} = require('youtube-validate');
 
 const request = require('request').defaults({encoding: null});
 
+const i18n = require("i18n");
+
 // List music youtube
 let listMusic = [];
 let currentMusicPlayed = 0;
@@ -42,24 +44,24 @@ addNewSound = async (msg) => {
 
     // Check if something is missing or sound size is too big
     if (!soundName) {
-        msg.reply('La commande c\'est !add nomduson et toi tu as oublié le nom du son');
+        msg.reply(i18n.__('Incorrect command add sound'));
         return;
     }
 
     if (!msg.attachments.size) {
-        msg.reply('Il manque le son');
+        msg.reply(i18n.__('No sound attached'));
         return;
     }
 
     if (msg.attachments.first().size > 2000000) {
-        msg.reply('Fichier audio trop grand. La taille maximum est 2mo');
+        msg.reply(i18n.__('Max size add sound', 2));
         return;
     }
 
     await Mongo.getSound(soundName, (audioFile) => {
 
         if (audioFile) {
-            msg.reply('Une musique a déjà ce nom.');
+            msg.reply(i18n.__('Music already have the name'));
             return;
         }
 
@@ -84,11 +86,11 @@ addNewSound = async (msg) => {
 
         const embed = new MessageEmbed()
             // Set the title of the field
-            .setTitle('Son ajouté!')
+            .setTitle(i18n.__('Sound added!'))
             // Set the color of the embed
             .setColor(0xff0000)
             // Set the main content of the embed
-            .setDescription('Si tu veux le lancer : ' + prefixCall + 'play ' + soundName);
+            .setDescription(i18n.__('Suggestion launch music',(prefixCall + 'play ' + soundName)));
         // Send the embed to the same channel as the message
         msg.channel.send(embed);
 
@@ -102,13 +104,13 @@ const playSound = async (message) => {
     const soundName = message.content.split(' ')[1];
 
     if (!soundName) {
-        message.reply('C\'est quoi le nom de la musique ?');
+        message.reply(i18n.__('Song name forgotten'));
         return;
     }
 
     // Checks
     if (message.member.voice.channel === null) {
-        message.reply('Tu n\'est pas dans un channel vocal sur ce serveur.');
+        message.reply(i18n.__('Not in vocal channel'));
         return;
     }
 
@@ -117,7 +119,7 @@ const playSound = async (message) => {
     await Mongo.getSound(soundName, function (audioFile) {
 
         if (!audioFile) {
-            message.reply('Aucune musique trouvé qui avec ce nom.');
+            message.reply(i18n.__('No music found'));
             return;
         }
 
@@ -144,12 +146,13 @@ const playYoutubeSound = async (message) => {
 
     // Checks
     if (message.member.voice.channel === null) {
-        message.reply('Tu n\'est pas dans un channel vocal sur ce serveur.');
+        message.reply(i18n.__('Not in vocal channel'));
         return;
     }
 
     if (!message.content.split(' ')[1]) {
-        message.reply('Il manque le lien Youtube.');
+
+        message.reply(i18n.__('No youtube link'));
         return;
     }
 
@@ -164,10 +167,10 @@ const playYoutubeSound = async (message) => {
                     currentConnection = connection;
                     playCurrentMusic();
                 });
-            message.reply(youtubeAddress + ' ajouté à la file!')
+            message.reply(i18n.__('Added to list',youtubeAddress))
 
         }).catch((err) => {
-        message.reply('Le lien youtube n\'est pas valide');
+        message.reply(i18n.__('Youtube link not valid'));
     });
 
 };
@@ -178,13 +181,13 @@ const displayWaitingListPlay = (message) => {
     let messageBuilt = [];
 
     if (!listMusic.length) {
-        message.reply('Il n\'y a pas de musique en queue');
+        message.reply(i18n.__("No music in queue"));
         return;
     }
 
     listMusic.forEach((music, index) => {
         let row = {
-            name: (index + 1) + '.' + (currentMusicPlayed === index ? ' (EN TRAIN D\'ETRE ECOUTEE)' : ''),
+            name: (index + 1) + '.' + (currentMusicPlayed === index ? i18n.__("Now played") : ''),
             value: music,
         };
         messageBuilt.push(row);
@@ -192,7 +195,7 @@ const displayWaitingListPlay = (message) => {
 
     const embed = new MessageEmbed()
         // Set the title of the field
-        .setTitle('File d\'attente:')
+        .setTitle(i18n.__('Playlist'))
         // Set the color of the embed
         .setColor(0xff0000)
         .addFields(messageBuilt);
@@ -203,7 +206,7 @@ const displayWaitingListPlay = (message) => {
 
 const nextSound = (message) => {
     if (!currentConnection) {
-        message.reply('Il n\' y a pas de musique actuellement joué');
+        message.reply(i18n.__('No music'));
         return;
     }
 
@@ -212,12 +215,12 @@ const nextSound = (message) => {
 
 const previousSound = (message) => {
     if (!currentConnection) {
-        message.reply('Il n\' y a pas de musique actuellement joué');
+        message.reply(i18n.__('No music'));
         return;
     }
 
     if (currentMusicPlayed === 0) {
-        message.reply('Il n\'y a pas de musique avant');
+        message.reply(i18n.__('No previous music'));
         return;
     }
     currentMusicPlayed--;
@@ -227,7 +230,7 @@ const previousSound = (message) => {
 
 const stopPlaylist = (message) => {
     if (!currentConnection) {
-        message.reply('Il n\' y a pas de musique actuellement joué');
+        message.reply(i18n.__('No music'));
         return;
     }
     currentConnection.disconnect();

@@ -1,0 +1,22 @@
+{
+  "Logged in as %s": "Logged in as %s",
+  "Not enough permissions, you need to have the role %s": "Not enough permissions, you need to have the role %s",
+  "Token is good, connected!": "Token is good, connected!",
+  "Incorrect command add sound": "Command is incorrect, you forgot the sound name, the command is !add nomduson",
+  "No sound attached": "No sound is attached to the command",
+  "Max size add sound": "File to big, max size is %s",
+  "Music already have the name": "Music already have the name",
+  "Sound added!": "Sound added!",
+  "Suggestion launch music": "If you want to play this song: %s",
+  "Song name forgotten": "What is the song name?",
+  "Not in vocal channel": "You are not in a vocal channel",
+  "No music found": "Musique not found",
+  "No youtube link": "Youtube link missing",
+  "Added to list": "%s is added to playlist",
+  "Youtube link not valid": "Youtube link not valid",
+  "No music in queue": "No music in queue",
+  "Now played": "Now played",
+  "Playlist": "Playlist:",
+  "No music": "No music is playing right now",
+  "No previous music": "No previous music in the playlist"
+}

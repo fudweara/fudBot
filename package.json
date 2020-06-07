@@ -16,6 +16,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "ffmpeg-static": "^4.2.2",
+    "i18n": "^0.10.0",
     "mime-types": "^2.1.27",
     "mongodb": "^3.5.8",
     "music-metadata-browser": "^2.0.5",

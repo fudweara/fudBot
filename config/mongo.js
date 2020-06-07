@@ -22,7 +22,7 @@ const addSound = (sound) => {
 
     db.collection('sounds').insertOne(sound)
         .then(function (result) {
-            console.log('added');
+            //console.log('added');
         })
 };
 

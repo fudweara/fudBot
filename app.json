@@ -27,6 +27,10 @@
     "PREFIX_CALL": {
       "description": "Prefix to call the bot (default value is '!')",
       "required": false
+    },
+    "LANGUAGE": {
+      "description": "Language used by the bot (default is en)",
+      "required": false
     }
   }
 }
