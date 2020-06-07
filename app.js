@@ -46,7 +46,7 @@ client.on('message', async msg => {
             await Sound.play(msg);
             break;
 
-        case prefixCall+'playyt':
+        case prefixCall + 'playyt':
             await Sound.playYoutube(msg);
             break;
 
@@ -55,9 +55,18 @@ client.on('message', async msg => {
                 Utils.deleteMessage(msg);
             });
             break;
-        case prefixCall+ 'list':
+        case prefixCall + 'list':
             Sound.waitingList(msg);
-            break
+            break;
+        case prefixCall + 'next':
+            Sound.next(msg);
+            break;
+        case prefixCall + 'previous':
+            Sound.previous(msg);
+            break;
+        case prefixCall + 'stop':
+            Sound.stop(msg);
+            break;
     }
 
 });

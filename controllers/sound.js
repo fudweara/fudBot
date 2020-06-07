@@ -20,18 +20,19 @@ const resetQueue = () => {
 const playCurrentMusic = () => {
 
     currentConnection.play(ytdl(listMusic[currentMusicPlayed], {filter: 'audioonly'})).on("finish", () => {
-
-        if (listMusic[currentMusicPlayed + 1]) {
-            currentMusicPlayed++;
-            playCurrentMusic();
-        } else {
-            currentConnection.disconnect();
-            resetQueue();
-        }
-
+        nextMusic();
     })
 
+};
 
+const nextMusic = () => {
+    if (listMusic[currentMusicPlayed + 1]) {
+        currentMusicPlayed++;
+        playCurrentMusic();
+    } else {
+        currentConnection.disconnect();
+        resetQueue();
+    }
 };
 
 //Exported function
@@ -146,10 +147,7 @@ const playYoutubeSound = async (message) => {
         return;
     }
 
-
     const youtubeAddress = message.content.split(' ')[1];
-
-    //Add https://github.com/tjrgg/simple-youtube-api
 
     validateUrl(youtubeAddress)
         .then(res => {
@@ -197,10 +195,47 @@ const displayWaitingListPlay = (message) => {
 
 };
 
+const nextSound = (message) => {
+    if (!currentConnection) {
+        message.reply('Il n\' y a pas de musique actuellement joué');
+        return;
+    }
+
+    nextMusic();
+};
+
+const previousSound = (message) => {
+    if (!currentConnection) {
+        message.reply('Il n\' y a pas de musique actuellement joué');
+        return;
+    }
+
+    if (currentMusicPlayed === 0) {
+        message.reply('Il n\'y a pas de musique avant');
+        return;
+    }
+    currentMusicPlayed--;
+    playCurrentMusic();
+
+};
+
+const stopPlaylist = (message) => {
+    if (!currentConnection) {
+        message.reply('Il n\' y a pas de musique actuellement joué');
+        return;
+    }
+    currentConnection.disconnect();
+    resetQueue();
+
+};
+
 
 module.exports = {
     add: addNewSound,
     play: playSound,
     playYoutube: playYoutubeSound,
     waitingList: displayWaitingListPlay,
+    next: nextSound,
+    previous: previousSound,
+    stop: stopPlaylist,
 };

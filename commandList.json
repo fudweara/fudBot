@@ -56,6 +56,18 @@
     {
       "name": "list",
       "description": "Liste des musiques en attente de lecture"
+    },
+    {
+      "name": "next",
+      "description": "Joue la musique suivant dans la liste des musiques en attente"
+    },
+    {
+      "name": "previous",
+      "description": "Joue la musique précédente dans la liste des musiques en attente"
+    },
+    {
+      "name": "stop",
+      "description": "Arrete la musique jouée et supprime la liste des musiques en attente"
     }
   ]
 }
