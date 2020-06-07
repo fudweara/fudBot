@@ -23,6 +23,10 @@
     "NAME_ADMIN_ROLE": {
       "description": "Role name to allow user to do protected commands",
       "required": true
+    },
+    "PREFIX_CALL": {
+      "description": "Prefix to call the bot (default value is '!')",
+      "required": false
     }
   }
 }

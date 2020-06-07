@@ -14,7 +14,7 @@ const Sound = require('./controllers/sound');
 const Utils = require('./controllers/utils');
 
 const client = new Discord.Client();
-const prefixCall = '!';
+const prefixCall = process.env.PREFIX_CALL? process.env.PREFIX_CALL: '!';
 const roleNameAdmin = process.env.NAME_ADMIN_ROLE;
 
 mongo.init();

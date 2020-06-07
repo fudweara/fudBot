@@ -79,13 +79,16 @@ addNewSound = async (msg) => {
                 });
         });
 
+        const prefixCall = process.env.PREFIX_CALL ? process.env.PREFIX_CALL : '!';
+
+
         const embed = new MessageEmbed()
             // Set the title of the field
             .setTitle('Son ajouté!')
             // Set the color of the embed
             .setColor(0xff0000)
             // Set the main content of the embed
-            .setDescription('Si tu veux le lancer : !play ' + soundName);
+            .setDescription('Si tu veux le lancer : ' + prefixCall + 'play ' + soundName);
         // Send the embed to the same channel as the message
         msg.channel.send(embed);
 
