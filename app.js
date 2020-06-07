@@ -54,8 +54,10 @@ client.on('message', async msg => {
             havePermission(msg, (msg) => {
                 Utils.deleteMessage(msg);
             });
-
             break;
+        case prefixCall+ 'list':
+            Sound.waitingList(msg);
+            break
     }
 
 });

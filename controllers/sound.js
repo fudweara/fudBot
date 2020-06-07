@@ -160,7 +160,7 @@ const playYoutubeSound = async (message) => {
                     currentConnection = connection;
                     playCurrentMusic();
                 });
-            message.reply(res + ' ajouté à la file!')
+            message.reply(youtubeAddress + ' ajouté à la file!')
 
         }).catch((err) => {
         message.reply('Le lien youtube n\'est pas valide');
@@ -169,8 +169,38 @@ const playYoutubeSound = async (message) => {
 };
 
 
+const displayWaitingListPlay = (message) => {
+
+    let messageBuilt = [];
+
+    if (!listMusic.length) {
+        message.reply('Il n\'y a pas de musique en queue');
+        return;
+    }
+
+    listMusic.forEach((music, index) => {
+        let row = {
+            name: (index + 1) + '.' + (currentMusicPlayed === index ? ' (EN TRAIN D\'ETRE ECOUTEE)' : ''),
+            value: music,
+        };
+        messageBuilt.push(row);
+    });
+
+    const embed = new MessageEmbed()
+        // Set the title of the field
+        .setTitle('File d\'attente:')
+        // Set the color of the embed
+        .setColor(0xff0000)
+        .addFields(messageBuilt);
+    // Send the embed to the same channel as the message
+    message.channel.send(embed);
+
+};
+
+
 module.exports = {
     add: addNewSound,
     play: playSound,
     playYoutube: playYoutubeSound,
+    waitingList: displayWaitingListPlay,
 };
