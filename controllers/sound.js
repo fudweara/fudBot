@@ -109,8 +109,6 @@ const playSound = async (message) => {
         return;
     }
 
-    // Join channel
-    const connection = await message.member.voice.channel.join();
 
     // Get sound in DB
     await Mongo.getSound(soundName, function (audioFile) {
@@ -120,14 +118,19 @@ const playSound = async (message) => {
             return;
         }
 
-        // Play sound
-        connection.play(Utils.bufferToStream(audioFile.binary.buffer));
+        // Join channel
+        message.member.voice.channel.join().then((connection) => {
 
-        // Disconnect 2s after the end of the sound
-        setTimeout(() => {
-            connection.disconnect();
-            resetQueue();
-        }, audioFile.duration + 1000)
+            // Play sound
+            connection.play(Utils.bufferToStream(audioFile.binary.buffer));
+
+            // Disconnect 2s after the end of the sound
+            setTimeout(() => {
+                connection.disconnect();
+                resetQueue();
+            }, audioFile.duration + 1000)
+        });
+
 
     });
 
