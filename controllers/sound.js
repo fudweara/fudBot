@@ -8,7 +8,33 @@ const {validateUrl} = require('youtube-validate');
 
 const request = require('request').defaults({encoding: null});
 
+// List music youtube
+let listMusic = [];
+let currentMusicPlayed = 0;
+let currentConnection = null; //current connection
+const resetQueue = () => {
+    currentConnection = null;
+    listMusic = [];
+    currentMusicPlayed = 0;
+};
+const playCurrentMusic = () => {
 
+    currentConnection.play(ytdl(listMusic[currentMusicPlayed], {filter: 'audioonly'})).on("finish", () => {
+
+        if (listMusic[currentMusicPlayed + 1]) {
+            currentMusicPlayed++;
+            playCurrentMusic();
+        } else {
+            currentConnection.disconnect();
+            resetQueue();
+        }
+
+    })
+
+
+};
+
+//Exported function
 addNewSound = async (msg) => {
 
     const soundName = msg.content.split(' ')[1];
@@ -97,7 +123,10 @@ const playSound = async (message) => {
         connection.play(Utils.bufferToStream(audioFile.binary.buffer));
 
         // Disconnect 2s after the end of the sound
-        setTimeout(() => connection.disconnect(), audioFile.duration + 2000)
+        setTimeout(() => {
+            connection.disconnect();
+            resetQueue();
+        }, audioFile.duration + 1000)
 
     });
 
@@ -120,14 +149,18 @@ const playYoutubeSound = async (message) => {
 
     const youtubeAddress = message.content.split(' ')[1];
 
+    //Add https://github.com/tjrgg/simple-youtube-api
 
     validateUrl(youtubeAddress)
         .then(res => {
-            message.member.voice.channel.join().then((connection) => {
-                connection.play(ytdl(youtubeAddress, {filter: 'audioonly'})).on("finish", () => {
-                    connection.disconnect()
-                })
-            });
+            listMusic.push(youtubeAddress);
+            // if no current connection => bot is not playing music now
+            if (!currentConnection)
+                message.member.voice.channel.join().then((connection) => {
+                    currentConnection = connection;
+                    playCurrentMusic();
+                });
+            message.reply(res + ' ajouté à la file!')
 
         }).catch((err) => {
         message.reply('Le lien youtube n\'est pas valide');
